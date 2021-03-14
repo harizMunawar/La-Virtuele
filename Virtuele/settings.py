@@ -29,9 +29,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_auth.registration',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'webpack_loader',
+
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -117,7 +127,16 @@ STATIC_URL = '/static/'
 WEBPACK_LOADER = {
   'DEFAULT': {
     'CACHE': DEBUG,
-    'BUNDLE_DIR_NAME': '/bundles/',  # must end with slash
+    'BUNDLE_DIR_NAME': '/bundles/',
     'STATS_FILE': os.path.join(FRONTEND_DIR, 'webpack-stats.json'),
   }
 }
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+LOGIN_REDIRECT_URL = '/dashboard/'
